@@ -1,0 +1,50 @@
+syntax = "proto3";
+package follow;
+option go_package="food/follow/proto/gen;followpb";
+
+
+message FollowEntity{
+  int32  id=1;
+  int32 dinnerID=2;
+  int32 followDinerID=3;
+  int32 valid=4;
+}
+
+message IsFollowRequest{
+
+}
+message IsFollowResponse{
+    FollowEntity follow =1;
+}
+
+message FollowRequest{
+  int32 dinerID=1;
+  int32 followDinerID=2;
+  int32 followed=3;
+
+}
+
+message FollowResponse{
+  FollowEntity follow =1;
+}
+
+message FollowingRequest{
+  int32 dinerID=1;
+}
+message FollowingResponse{
+ repeated  FollowEntity follows =1;
+}
+
+message FollowersRequest{
+  int32 dinerID=1;
+}
+message FollowersResponse{
+  repeated  FollowEntity follows =1;
+}
+
+service FollowService{
+  rpc IsFollow (IsFollowRequest) returns (IsFollowResponse);
+  rpc Follow (FollowRequest) returns (FollowResponse);
+  rpc Following(FollowingRequest) returns (FollowingResponse);
+  rpc Followers(FollowersRequest)returns(FollowersResponse);
+}

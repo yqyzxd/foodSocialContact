@@ -1,0 +1,27 @@
+syntax = "proto3";
+package diner;
+option go_package = "food/diner/proto/gen;dinerpb";
+
+
+
+message GetDinerRequest{
+  string username=1;
+}
+message DinerEntity{
+  int32 id=1;
+  Diner diner=2;
+}
+message Diner{
+
+  string username=2;
+  string nickname=3;
+  string password=4;
+  string phone=5;
+  string email=6;
+  string avatar=7;
+  string roles=8;
+}
+
+service DinerService{
+  rpc GetUserByUsername (GetDinerRequest) returns (DinerEntity);
+}
