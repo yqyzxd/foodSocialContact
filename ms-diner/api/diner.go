@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"net/http"
+	"strconv"
 )
 
 func Login(c *gin.Context) {
@@ -104,4 +105,28 @@ func GetSignInfoOfMonth(c *gin.Context) {
 	}
 
 	res.JSON(c, err)
+}
+
+func updateDinerLocation(c *gin.Context) {
+
+	lon, err := strconv.ParseFloat(c.PostForm("lon"), 64)
+	if err != nil {
+		//error
+
+		return
+	}
+	lat, err := strconv.ParseFloat(c.PostForm("lat"), 64)
+	if err != nil {
+		//error
+
+		return
+	}
+
+	s := &diner.NearMeService{
+		//todo 传入Redis
+
+	}
+	dinerID := 1
+	s.UpdateDinerLocation(dinerID, lon, lat)
+
 }
